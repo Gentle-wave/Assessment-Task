@@ -28,7 +28,7 @@ First, you need to pull the backend project from the GitHub repository.
 3. Run the following command to clone the repository:
 
    ```bash
-   git clone https://github.com/Gentle-wave/mini-agency.git
+   git clone https://github.com/Gentle-wave/Assessment-Task.git
    ```
 
    Replace `your-username` and `your-backend-repo` with the actual repository URL.
