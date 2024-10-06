@@ -12,7 +12,7 @@ let corsOption = {
 }
 
 const db = require('./models')
-db.sequelize.sync({force: false})
+db.sequelize.sync({force: false, alter: false})
     .then(() => {
         console.log("Database connected")  //successfull connection
     })
@@ -47,5 +47,5 @@ require('./routes/route.js')(app)
 
 app.use(errorHandler);
 app.listen(process.env.PORT || 8000, () => {
-    console.log('server is running on port:' + process.env.PORT)
+    console.log('server is running on port:' + process.env.PORT || 8000)
 })

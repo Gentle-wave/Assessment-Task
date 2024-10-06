@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         completed: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true,
+            defaultValue: false,
         },
         agency: {
             type: DataTypes.STRING,

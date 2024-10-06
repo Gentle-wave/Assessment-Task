@@ -32,22 +32,25 @@ const createProject = catchAsync(async (req, res, next) => {
 const updateProjectStatus = catchAsync(async (req, res, next) => {
     try {
         const { projectId } = req.params;
-        const { completed } = req.body;
 
+        // Find the project by its ID
         const project = await db.Project.findByPk(projectId);
 
         if (!project) {
             throw new AppError(404, 'Project not found');
         }
 
-        project.completed = completed;
+        // Toggle the 'completed' field (true -> false, false -> true)
+        project.completed = !project.completed;
 
+        // Save the updated project
         await project.save();
 
+        // Send response with updated project
         res.status(200).json({
             status: 'success',
             message: 'Project status updated successfully',
-            data: { project },
+            isCompleted: project.completed
         });
     } catch (error) {
         next(error);
@@ -56,7 +59,11 @@ const updateProjectStatus = catchAsync(async (req, res, next) => {
 
 const getAllProjects = catchAsync(async (req, res, next) => {
     try {
+        const { userId } = req.params; // Assuming userId is sent as a URL parameter
+
+        // Fetch projects associated with the specified userId
         const projects = await db.Project.findAll({
+            where: { agency: userId }, // Filter by userId
             include: [
                 {
                     model: db.User,
@@ -66,6 +73,7 @@ const getAllProjects = catchAsync(async (req, res, next) => {
             ],
         });
 
+
         res.status(200).json({
             status: 'success',
             data: { projects },
@@ -74,6 +82,7 @@ const getAllProjects = catchAsync(async (req, res, next) => {
         next(error);
     }
 });
+
 
 const deleteProject = catchAsync(async (req, res, next) => {
     try {

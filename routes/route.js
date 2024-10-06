@@ -4,16 +4,17 @@ module.exports = app => {
     const { getAllAgencies, toggleUserActiveStatus } = require('../controller/admin.controller');
     const { createProject, getAllProjects,
         deleteProject, updateProjectStatus } = require('../controller/projects.controler');
-    const { createUser, loginUser,
+    const { createUser, loginUser,getUserProfile,
         updateProfileForAgencies, updateProfileForAdmin } = require('../controller/user.controller');
 
     router.post("/signup", createUser);
     router.post("/login", loginUser);
     router.patch('/updateProfile/:userId', updateProfileForAgencies);
+    router.get('/authorization', getUserProfile);
 
 
     router.post('/createProject', createProject);
-    router.get('/getAllProjects', getAllProjects);
+    router.get('/getAllProjects/:userId', getAllProjects);
     router.delete('/deleteProject/:projectId', deleteProject);
     router.put('/toggleProjectSatus/:projectId', updateProjectStatus);
 

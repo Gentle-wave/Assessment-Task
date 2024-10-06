@@ -6,7 +6,7 @@ const getAllAgencies = catchAsync(async (req, res, next) => {
     try {
         const agencies = await db.User.findAll({
             where: { role: 'agency' },
-            attributes: ['userId', 'fullName', 'email', 'type', 'phoneNumber', 'address', 'active'], // Include the fields you want
+            attributes: ['userId', 'fullName', 'email', 'type', 'phoneNumber', 'address', 'active','website'], // Include the fields you want
         });
 
         res.status(200).json({
